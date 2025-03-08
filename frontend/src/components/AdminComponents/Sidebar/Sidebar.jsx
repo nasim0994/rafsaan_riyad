@@ -171,10 +171,6 @@ const adminSidebarItems = [
         title: "Section",
         subMenu: [
           {
-            title: "Top Header",
-            path: "/admin/business/section/topHeader/all",
-          },
-          {
             title: "Banner",
             path: "/admin/business/section/banner/all",
           },

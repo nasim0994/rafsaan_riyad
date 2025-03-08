@@ -1,6 +1,6 @@
 import { useGetTopCampaignBannersQuery } from "@/Redux/topCampaignBanner";
 
-export default function CampaignBanner1() {
+export default function CampaignBanner() {
   const { data } = useGetTopCampaignBannersQuery();
   const banner = data?.data && data?.data[0];
 

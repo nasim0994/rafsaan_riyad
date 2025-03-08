@@ -3,7 +3,6 @@ import ButtonSpinner from "@/components/shared/ButtonSpinner";
 import {
   useDeleteProductMutation,
   useGetAllProductsQuery,
-  useUpdateFeaturedMutation,
   useUpdateStatusMutation,
 } from "@/Redux/product/productApi";
 import { useState } from "react";
@@ -38,25 +37,8 @@ export default function ProductList() {
     }
   };
 
-  // update feature
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [updateFeatured, { isLoading: ufLoading }] =
-    useUpdateFeaturedMutation();
   const [updateStatus, { isLoading: usLoading }] = useUpdateStatusMutation();
-
-  const handleUpdateFeatured = async (id) => {
-    setSelectedProduct(id);
-
-    const res = await updateFeatured(id);
-
-    if (res?.data?.success) {
-      toast.success("Status updated success");
-    } else {
-      toast.error(res?.data?.message || "Something went wrong!");
-      console.log(res);
-    }
-  };
-
   const handleUpdateStatus = async (id) => {
     setSelectedProduct(id);
 
@@ -93,22 +75,6 @@ export default function ProductList() {
           </div>
         </td>
         <td>{product?.category?.name}</td>
-        <td>
-          {ufLoading && selectedProduct === product?._id ? (
-            <ButtonSpinner />
-          ) : (
-            <label className="relative inline-flex cursor-pointer items-center">
-              <input
-                checked={product?.featured && product?.featured}
-                type="checkbox"
-                value={product?.featured}
-                className="peer sr-only"
-                onChange={() => handleUpdateFeatured(product?._id)}
-              />
-              <div className="peer h-[23px] w-11 rounded-full bg-gray-200 after:absolute after:start-[1px] after:top-[1.5px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"></div>
-            </label>
-          )}
-        </td>
         <td>{product?.sellingPrice}TK</td>
         <td>{product?.totalStock}</td>
         <td>
@@ -166,7 +132,6 @@ export default function ProductList() {
               <tr>
                 <th>Product name</th>
                 <th>Category</th>
-                <th>Featured</th>
                 <th>Base Price</th>
                 <th>Total Stock</th>
                 <th>Status</th>

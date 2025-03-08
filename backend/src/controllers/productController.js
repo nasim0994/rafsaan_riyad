@@ -10,9 +10,7 @@ const { pick } = require("../utils/pick");
 
 exports.addProduct = async (req, res) => {
   const thumbnail = req?.files?.thumbnail[0]?.filename;
-  const sizeChart = req?.files?.sizeChart && req?.files?.sizeChart[0]?.filename;
   const galleries = req.files.gallery ? req.files.gallery : [];
-  const colorImages = req.files.colorImages ? req.files.colorImages : [];
 
   if (!thumbnail) {
     return res.json({
@@ -21,15 +19,12 @@ exports.addProduct = async (req, res) => {
     });
   }
 
-  const { title, variants, colors, sizes } = req?.body;
+  const { title } = req?.body;
 
   let product = {
     ...req?.body,
     slug: slugify(`${title}`),
     thumbnail,
-    sizeChart: sizeChart || null,
-    variants: variants && JSON.parse(variants),
-    sizes: sizes && JSON.parse(sizes),
   };
 
   if (galleries?.length > 0) {
@@ -37,19 +32,6 @@ exports.addProduct = async (req, res) => {
       url: gallery.filename,
       name: gallery.originalname,
     }));
-  }
-
-  const parseColors = colors ? JSON.parse(colors) : [];
-
-  if (parseColors && parseColors?.length > 0 && colorImages?.length > 0) {
-    const uploadedImages = colorImages?.map((file, index) => ({
-      color: parseColors[index],
-      image: file?.filename,
-    }));
-
-    product.colors = uploadedImages;
-  } else {
-    product.colors = parseColors;
   }
 
   try {
@@ -63,7 +45,7 @@ exports.addProduct = async (req, res) => {
     res.json({
       success: false,
       message: error.message,
-      error
+      error,
     });
 
     fs.unlink(`./uploads/products/${thumbnail}`, (err) => {
@@ -71,14 +53,6 @@ exports.addProduct = async (req, res) => {
         console.error(err);
       }
     });
-
-    if (sizeChart) {
-      fs.unlink(`./uploads/products/${sizeChart}`, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-    }
 
     if (galleries?.length > 0) {
       galleries?.forEach((gallery) => {
@@ -89,18 +63,8 @@ exports.addProduct = async (req, res) => {
         });
       });
     }
-
-    if (colorImages?.length > 0) {
-      colorImages?.forEach((image) => {
-        fs.unlink(`./uploads/products/${image?.filename}`, (err) => {
-          if (err) {
-            console.error(err);
-          }
-        });
-      });
-    }
-  };
-}
+  }
+};
 
 exports.getAllProducts = async (req, res) => {
   const paginationOptions = pick(req.query, ["page", "limit"]);
@@ -113,7 +77,7 @@ exports.getAllProducts = async (req, res) => {
     range,
     sort: priceSort,
     search,
-    status
+    status,
   } = req.query;
 
   try {
@@ -149,7 +113,6 @@ exports.getAllProducts = async (req, res) => {
     } else {
       query.status = true;
     }
-
 
     const prices = range && JSON.parse(range);
     let sortOption = {};
@@ -283,17 +246,6 @@ exports.deleteProductById = async (req, res) => {
       }
     });
 
-    // delete sizeChart
-    if (product?.sizeChart) {
-      const sizeChart = product?.sizeChart;
-      const sizeChartPath = `./uploads/products/${sizeChart}`;
-      fs.unlink(sizeChartPath, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-    }
-
     if (product?.galleries?.length > 0) {
       product?.galleries?.map((gallery) => {
         fs.unlink(`./uploads/products/${gallery?.url}`, (err) => {
@@ -301,18 +253,6 @@ exports.deleteProductById = async (req, res) => {
             console.error(err);
           }
         });
-      });
-    }
-
-    if (product?.colors?.length > 0) {
-      product?.colors?.map((color) => {
-        if (color?.image) {
-          fs.unlink(`./uploads/products/${color?.image}`, (err) => {
-            if (err) {
-              console.error(err);
-            }
-          });
-        }
       });
     }
   } catch (error) {
@@ -326,12 +266,9 @@ exports.deleteProductById = async (req, res) => {
 exports.updateProduct = async (req, res) => {
   const id = req?.params?.id;
   const thumbnail = req?.files?.thumbnail && req?.files?.thumbnail[0]?.filename;
-  const sizeChart = req?.files?.sizeChart && req?.files?.sizeChart[0]?.filename;
   const galleries = req.files.gallery ? req.files.gallery : [];
-  const colorImages = req.files.colorImages ? req.files.colorImages : [];
 
-  const { title, variants, galleriesUrl, colorValues, colors, sizes } = req?.body;
-
+  const { title, galleriesUrl } = req?.body;
 
   try {
     const isExit = await Product.findById(id);
@@ -347,9 +284,6 @@ exports.updateProduct = async (req, res) => {
       ...req?.body,
       slug: slugify(`${title}`),
       thumbnail: thumbnail || isExit?.thumbnail,
-      sizeChart: sizeChart || isExit?.sizeChart,
-      variants: variants && JSON.parse(variants),
-      sizes: sizes && JSON.parse(sizes),
     };
 
     let newImages = [];
@@ -389,73 +323,6 @@ exports.updateProduct = async (req, res) => {
         message: "You can't upload more than 10 images",
       });
     }
-
-    const parseColors = colors && JSON.parse(colors);
-    const colorArray = colorValues ? (Array.isArray(colorValues) ? colorValues : [colorValues]) : [];
-    const uploadedImages = colorImages?.map((file, index) => ({
-      color: colorArray[index],
-      image: file?.filename,
-    }));
-
-    if (colorImages?.length > 0) {
-      if (parseColors && parseColors?.length > 0) {
-        if (uploadedImages?.length > 0) {
-          const newColors = parseColors?.map((item) => {
-            const matchedImage = uploadedImages?.find(
-              (img) => img?.color == item
-            )
-
-            // For delete old image
-            if (matchedImage && isExit?.colors) {
-              const oldColor = isExit?.colors?.find((v) => v.color == item);
-              if (oldColor?.image) {
-                const fullPath = `./uploads/products/${oldColor?.image}`;
-                fs.unlink(fullPath, (err) => {
-                  if (err) {
-                    console.error(`❌ Failed to delete old image: ${fullPath}`, err);
-                  } else {
-                    console.log(`✅ Deleted old image: ${fullPath}`);
-                  }
-                });
-              }
-            }
-
-            return {
-              color: item,
-              image: matchedImage?.image || isExit?.colors?.find(v => v.color == item)?.image
-            };
-          });
-
-          product.colors = newColors;
-        } else {
-          // Handle deleted variants' images
-          const oldColors = isExit?.variants || [];
-          const deletedColors = oldColors?.filter(
-            (oldColor) => !parseColors?.some((newColor) => newColor.color == oldColor.color)
-          );
-
-          // Remove images of deleted colors
-          deletedColors?.forEach((color) => {
-            if (color?.image) {
-              const fullPath = `./uploads/products/${color?.image}`;
-              fs.unlink(fullPath, (err) => {
-                if (err) {
-                  console.error(`❌ Failed to delete old image of deleted color: ${fullPath}`, err);
-                } else {
-                  console.log(`✅ Deleted image of deleted color: ${fullPath}`);
-                }
-              });
-            }
-          });
-
-          product.colors = parseColors;
-        }
-      }
-    } else {
-      product.colors = isExit?.colors;
-    }
-
-
 
     // update
     const result = await Product.findByIdAndUpdate(id, product, { new: true });
@@ -505,30 +372,12 @@ exports.updateProduct = async (req, res) => {
         }
       });
     }
-
-    if (sizeChart && isExit?.sizeChart) {
-      const sizeChartPath = `./uploads/products/${isExit?.sizeChart}`;
-      fs.unlink(sizeChartPath, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-    }
-
   } catch (error) {
     res.json({
       success: false,
       message: error.message,
-      error
+      error,
     });
-
-    if (sizeChart) {
-      fs.unlink(`./uploads/products/${sizeChart}`, (err) => {
-        if (err) {
-          console.error(err);
-        }
-      });
-    }
 
     if (thumbnail) {
       fs.unlink(`./uploads/products/${thumbnail}`, (err) => {
@@ -547,66 +396,9 @@ exports.updateProduct = async (req, res) => {
         });
       });
     }
-
-    if (colorImages?.length > 0) {
-      colorImages?.map((image) => {
-        fs.unlink(`./uploads/products/${image?.filename}`, (err) => {
-          if (err) {
-            console.error(err);
-          }
-        });
-      });
-    }
   }
 };
 
-// get Flash products
-exports.getFeaturedProducts = async (req, res) => {
-  try {
-    const products = await Product.find({ featured: true, status: true })
-      .limit(req.query.limit)
-      .sort({ createdAt: -1 })
-      .populate("category subCategory subSubCategory", "name slug icon");
-
-    res.status(200).json({
-      success: true,
-      message: "Featured Products fetched successfully",
-      data: products,
-    });
-  } catch (error) {
-    res.json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-exports.updateFeatured = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const product = await Product.findById(id);
-
-    if (!product) {
-      return res.json({
-        success: false,
-        message: "Product not found",
-      });
-    }
-
-    await Product.findByIdAndUpdate(id, { featured: !product.featured });
-
-    res.status(200).json({
-      success: true,
-      message: "Product updated successfully",
-    });
-  } catch (error) {
-    res.son({
-      success: false,
-      message: error.message,
-    });
-  }
-};
 
 exports.updateStatus = async (req, res) => {
   const { id } = req.params;

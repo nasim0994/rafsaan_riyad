@@ -20,10 +20,6 @@ const productSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    code: {
-      type: String,
-      unique: true,
-    },
     category: {
       type: mongoose.Types.ObjectId,
       ref: "Categories",
@@ -52,59 +48,9 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    purchasePrice: {
-      type: Number,
-      required: true,
-    },
     totalStock: {
       type: Number,
       required: true,
-    },
-    isVariant: {
-      type: Boolean,
-      default: false,
-    },
-    variants: [
-      {
-        sku: {
-          type: String,
-        },
-        index: {
-          type: Number,
-        },
-        sellingPrice: {
-          type: Number,
-        },
-        purchasePrice: {
-          type: Number,
-        },
-        stock: {
-          type: Number,
-        },
-      },
-    ],
-    colors: [
-      {
-        color: { type: String },
-        image: { type: String },
-      },
-    ],
-    sizes: {
-      type: Array,
-    },
-    rating: {
-      type: Number,
-      default: 0,
-    },
-    reviewer: {
-      type: Number,
-      default: 0,
-    },
-    featured: {
-      type: Boolean,
-    },
-    sizeChart: {
-      type: String,
     },
     status: {
       type: Boolean,

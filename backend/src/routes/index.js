@@ -18,7 +18,6 @@ const contactRouter = require("./contactRoutes");
 const bannerRouter = require("./bannerRoutes");
 const heroCampaignBanner = require("./heroCampaignBannerRoutes");
 const topCampaignBannerRouter = require("./TopCampaignBannerRoutes");
-const campaignBanner = require("./campaignBannerRoutes");
 
 const aboutRouter = require("./aboutRoutes");
 
@@ -41,7 +40,6 @@ const termcondition = require("./termconditionRoute");
 const returnPolicy = require("./returnPolicyRoute");
 const faq = require("./faqRoutes");
 
-const topHeader = require("./topHeaderRoutes");
 
 //------------------------------------------------------------------------------
 // use Routes
@@ -67,7 +65,6 @@ router.use("/review", reviewRouter);
 router.use("/banner", bannerRouter);
 router.use("/heroCampaignBanner", heroCampaignBanner);
 router.use("/topCampaignBanner", topCampaignBannerRouter);
-router.use("/campaignBanner", campaignBanner);
 
 router.use("/coupon", couponRouter);
 router.use("/seo", seoRouter);
@@ -83,6 +80,5 @@ router.use("/businessInfo", businessInfoRoutes);
 router.use("/order", orderRouter);
 router.use("/payment", paymentRouter);
 router.use("/faq", faq);
-router.use("/topHeader", topHeader);
 
 module.exports = router;
