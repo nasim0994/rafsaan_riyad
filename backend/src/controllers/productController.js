@@ -72,7 +72,6 @@ exports.getAllProducts = async (req, res) => {
     category,
     subCategory,
     subSubCategory,
-    brand,
     range,
     sort: priceSort,
     search,
@@ -92,14 +91,12 @@ exports.getAllProducts = async (req, res) => {
 
     const categoryId = targetedCategory?._id;
     const subCategoryId = targetedSubCategory?._id;
-    const subSubategoryId = targetedSubSubCategory?._id;
-    const brandName = targetedBrand?.name;
+    const subSubCategoryId = targetedSubSubCategory?._id;
 
     let query = {};
     if (category) query.category = categoryId;
     if (subCategory) query.subCategory = subCategoryId;
-    if (subSubCategory) query.subSubCategory = subSubategoryId;
-    if (brand) query.brand = brandName;
+    if (subSubCategory) query.subSubCategory = subSubCategoryId;
     if (status === "all") {
       query;
     } else if (status == "active") {
