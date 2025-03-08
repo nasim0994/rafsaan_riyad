@@ -1,4 +1,4 @@
-import { RiAdminFill, RiCouponLine, RiPagesLine } from "react-icons/ri";
+import { RiAdminFill, RiPagesLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { BiCategory } from "react-icons/bi";
 import { IoFlashOutline, IoStorefrontOutline } from "react-icons/io5";
@@ -51,14 +51,6 @@ const adminSidebarItems = [
             ],
           },
           {
-            title: "Brand",
-            path: "/admin/product/brand/all",
-          },
-          {
-            title: "Color",
-            path: "/admin/product/color/all",
-          },
-          {
             title: "Product",
             path: "/admin/product/all",
           },
@@ -93,11 +85,6 @@ const adminSidebarItems = [
         title: "Flash Sale",
         path: "/admin/promo/flash-sale/all",
       },
-      {
-        icon: <RiCouponLine />,
-        title: "Coupon",
-        path: "/admin/promo/coupon/all",
-      },
     ],
   },
   {
@@ -125,10 +112,6 @@ const adminSidebarItems = [
           {
             title: "Company",
             path: "/admin/business/e-commerce/company",
-          },
-          {
-            title: "Shipping Configuration",
-            path: "/admin/business/e-commerce/shipping-configuration",
           },
         ],
       },

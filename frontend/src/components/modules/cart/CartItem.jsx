@@ -1,36 +1,12 @@
 import { currencyFormatter } from "@/lib/currencyFormatter";
-import { changeQuantity, removeFromCart } from "@/Redux/cart/cartSlice";
-import toast from "react-hot-toast";
-import { FaMinus, FaPlus } from "react-icons/fa";
+import { removeFromCart } from "@/Redux/cart/cartSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 export default function CartItem({ product }) {
-  const {
-    _id,
-    slug,
-    title,
-    price,
-    discount,
-    thumbnail,
-    quantity,
-    size,
-    color,
-  } = product;
+  const { slug, title, price, discount, thumbnail } = product;
 
   const dispatch = useDispatch();
-
-  const handelIncreaseQuantity = (id, color, size) => {
-    dispatch(changeQuantity({ id, color, size, quantity: quantity + 1 }));
-  };
-
-  const handelDecreaseQuantity = (id, color, size) => {
-    if (quantity < 1) {
-      toast.error("Quantity can't be less than 1");
-      return;
-    }
-    dispatch(changeQuantity({ id, color, size, quantity: quantity - 1 }));
-  };
 
   return (
     <div className="flex items-start gap-3">
@@ -51,23 +27,9 @@ export default function CartItem({ product }) {
           >
             {title}
           </Link>
-          <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral">
-            <p className="rounded bg-gray-100 px-2 py-1">Select Size: {size}</p>
-            <p className="rounded bg-gray-100 px-2 py-1">
-              Select Color: {color}
-            </p>
-            <div className="flex items-center gap-2 rounded bg-gray-100 px-2 py-1">
-              <button onClick={() => handelDecreaseQuantity(_id, color, size)}>
-                <FaMinus />
-              </button>
-              <p className="rounded border bg-base-100 px-6 py-px">
-                {quantity}
-              </p>
-              <button onClick={() => handelIncreaseQuantity(_id, color, size)}>
-                <FaPlus />
-              </button>
-            </div>
-          </div>
+          <p className="w-max rounded bg-gray-100 px-2 py-1 text-xs text-neutral">
+            Qty: {product?.quantity}
+          </p>
         </div>
 
         <div className="text-end">

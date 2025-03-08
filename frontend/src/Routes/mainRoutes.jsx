@@ -16,8 +16,7 @@ const FAQ = React.lazy(() => import("@/pages/main/FAQ"));
 const ProductDetails = React.lazy(() => import("@/pages/main/ProductDetails"));
 const Login = React.lazy(() => import("@/pages/main/Login"));
 const Signup = React.lazy(() => import("@/pages/main/Signup"));
-const Cart = React.lazy(() => import("@/pages/main/Cart"));
-const Checkout = React.lazy(() => import("@/pages/main/Checkout"));
+const Wishlist = React.lazy(() => import("@/pages/main/Wishlist"));
 
 export const mainRoutes = {
   path: "/",
@@ -116,18 +115,10 @@ export const mainRoutes = {
       ),
     },
     {
-      path: "/cart",
+      path: "/wishlist",
       element: (
         <Suspense fallback={<Spinner />}>
-          <Cart />
-        </Suspense>
-      ),
-    },
-    {
-      path: "/checkout",
-      element: (
-        <Suspense fallback={<Spinner />}>
-          <Checkout />
+          <Wishlist />
         </Suspense>
       ),
     },

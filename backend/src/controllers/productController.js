@@ -2,7 +2,6 @@ const Product = require("../models/productModel");
 const Categories = require("../models/categoriesModel");
 const SubCategory = require("../models/subCategoryModel");
 const SubSubCategory = require("../models/subSubCategoryModel");
-const Brand = require("../models/brandModel");
 const slugify = require("slugify");
 const fs = require("fs");
 const { calculatePagination } = require("../utils/calculatePagination");
@@ -89,9 +88,6 @@ exports.getAllProducts = async (req, res) => {
     });
     const targetedSubSubCategory = await SubSubCategory.findOne({
       slug: subSubCategory && subSubCategory,
-    });
-    const targetedBrand = await Brand.findOne({
-      slug: brand && brand,
     });
 
     const categoryId = targetedCategory?._id;
@@ -398,7 +394,6 @@ exports.updateProduct = async (req, res) => {
     }
   }
 };
-
 
 exports.updateStatus = async (req, res) => {
   const { id } = req.params;

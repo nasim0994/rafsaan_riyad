@@ -5,16 +5,9 @@ import { useGetFaviconQuery } from "./Redux/favicon/faviconApi";
 import { useGetSEOQuery } from "./Redux/seoApi";
 import { useEffect } from "react";
 import { mainRoutes } from "./Routes/mainRoutes";
-import { accountRoutes } from "./Routes/accountRoutes";
-import { rootRoutes } from "./Routes/rootRoutes";
 import { adminRoutes } from "./Routes/adminRoutes";
 
-const router = createBrowserRouter([
-  mainRoutes,
-  accountRoutes,
-  rootRoutes,
-  adminRoutes,
-]);
+const router = createBrowserRouter([mainRoutes, adminRoutes]);
 
 export default function App() {
   useAuthCheck();

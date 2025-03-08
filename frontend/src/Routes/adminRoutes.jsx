@@ -38,12 +38,7 @@ const AddSubSubCategory = React.lazy(
 const EditSubSubCategory = React.lazy(
   () => import("@/pages/Admin/Category/SubSubCategory/EditSubSubCategory"),
 );
-const AllBrands = React.lazy(() => import("@/pages/Admin/Brand/AllBrands"));
-const AddBrand = React.lazy(() => import("@/pages/Admin/Brand/AddBrand"));
-const EditBrand = React.lazy(() => import("@/pages/Admin/Brand/EditBrand"));
-const AllColor = React.lazy(() => import("@/pages/Admin/Color/AllColor"));
-const AddColor = React.lazy(() => import("@/pages/Admin/Color/AddColor"));
-const EditColor = React.lazy(() => import("@/pages/Admin/Color/EditColor"));
+
 const ProductList = React.lazy(
   () => import("@/pages/Admin/Product/ProductList"),
 );
@@ -184,30 +179,6 @@ export const adminRoutes = {
     {
       path: "/admin/product/category/sub-sub-category/edit/:id",
       element: <EditSubSubCategory />,
-    },
-    {
-      path: "/admin/product/brand/all",
-      element: <AllBrands />,
-    },
-    {
-      path: "/admin/product/brand/add",
-      element: <AddBrand />,
-    },
-    {
-      path: "/admin/product/brand/edit/:id",
-      element: <EditBrand />,
-    },
-    {
-      path: "/admin/product/color/all",
-      element: <AllColor />,
-    },
-    {
-      path: "/admin/product/color/add",
-      element: <AddColor />,
-    },
-    {
-      path: "/admin/product/color/edit/:id",
-      element: <EditColor />,
     },
     {
       path: "/admin/product/all",

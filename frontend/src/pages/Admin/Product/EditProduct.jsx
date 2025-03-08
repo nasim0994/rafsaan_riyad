@@ -35,7 +35,6 @@ export default function EditProduct() {
 
   const [sellingPrice, setSellingPrice] = useState(0);
   const [discount, setDiscount] = useState(0);
-  const [stock, setStock] = useState(0);
 
   const { data, isLoading: pLoading } = useGetProductByIdQuery(id);
   const product = data?.data;
@@ -58,7 +57,6 @@ export default function EditProduct() {
       setDiscount(product?.discount);
       setDetails(product?.description);
       setSellingPrice(product?.sellingPrice);
-      setStock(product?.totalStock);
 
       if (product?.galleries?.length > 0) {
         setGalleriesUrl(product?.galleries);
@@ -111,7 +109,6 @@ export default function EditProduct() {
     if (subSubCategoryId) formData.append("subSubCategory", subSubCategoryId);
     if (brand) formData.append("brand", brand);
     formData.append("sellingPrice", sellingPrice);
-    formData.append("totalStock", stock);
     formData.append("discount", discount);
     formData.append("description", details);
 
@@ -127,7 +124,6 @@ export default function EditProduct() {
       setBrand("");
       setDiscount("");
       setSellingPrice("");
-      setStock("");
       setDetails("");
       navigate("/admin/product/all");
     } else {
@@ -380,17 +376,6 @@ export default function EditProduct() {
                   name="discount"
                   onChange={(e) => setDiscount(e.target.value)}
                   value={discount}
-                />
-              </div>
-
-              <div>
-                <p className="text-sm">Stock *</p>
-                <input
-                  type="number"
-                  name="stock"
-                  onChange={(e) => setStock(e.target.value)}
-                  required
-                  value={stock}
                 />
               </div>
             </div>

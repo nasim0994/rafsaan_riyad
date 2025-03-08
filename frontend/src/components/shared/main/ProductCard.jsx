@@ -1,13 +1,17 @@
 import { Link } from "react-router-dom";
+import WishlistBtn from "./WishlistBtn";
 import { currencyFormatter } from "@/lib/currencyFormatter";
 
 export default function ProductCard({ product, discount: flashDiscount = 0 }) {
   const newDiscount = parseInt(flashDiscount) + product?.discount;
-  
-  
+
   return (
     <div className="group">
       <div className="relative overflow-hidden">
+        <div className="absolute right-3 top-3 z-20">
+          <WishlistBtn product={product} color="#fff" />
+        </div>
+
         <Link
           onClick={() => {
             sessionStorage.setItem("discount", newDiscount);

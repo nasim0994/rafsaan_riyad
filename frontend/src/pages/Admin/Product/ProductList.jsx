@@ -76,7 +76,6 @@ export default function ProductList() {
         </td>
         <td>{product?.category?.name}</td>
         <td>{product?.sellingPrice}TK</td>
-        <td>{product?.totalStock}</td>
         <td>
           {usLoading && selectedProduct === product?._id ? (
             <ButtonSpinner />
@@ -133,7 +132,6 @@ export default function ProductList() {
                 <th>Product name</th>
                 <th>Category</th>
                 <th>Base Price</th>
-                <th>Total Stock</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>

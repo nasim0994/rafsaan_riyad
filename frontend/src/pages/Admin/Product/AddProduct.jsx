@@ -51,11 +51,9 @@ export default function AddProduct() {
   const [subSubCategoryId, setSubSubCategoryId] = useState("");
   const [brand, setBrand] = useState("");
   const [discount, setDiscount] = useState(0);
-
   const [details, setDetails] = useState("");
-
   const [sellingPrice, setSellingPrice] = useState(0);
-  const [stock, setStock] = useState("");
+
 
   const [addProduct, { isLoading }] = useAddProductMutation();
 
@@ -86,7 +84,6 @@ export default function AddProduct() {
 
     formData.append("sellingPrice", sellingPrice);
     formData.append("discount", discount);
-    formData.append("totalStock", stock);
     formData.append("description", details);
 
     const res = await addProduct(formData);
@@ -101,7 +98,6 @@ export default function AddProduct() {
       setBrand("");
       setDiscount("");
       setSellingPrice("");
-      setStock("");
       setDetails("");
       navigate("/admin/product/all");
     } else {
@@ -295,17 +291,6 @@ export default function AddProduct() {
                   type="number"
                   name="discount"
                   onChange={(e) => setDiscount(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <p className="text-sm">Stock *</p>
-                <input
-                  type="number"
-                  name="stock"
-                  onChange={(e) => setStock(e.target.value)}
-                  required
-                  defaultValue={stock}
                 />
               </div>
             </div>

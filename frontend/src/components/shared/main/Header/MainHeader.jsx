@@ -2,19 +2,15 @@ import { CgMenuLeftAlt } from "react-icons/cg";
 import { BiSearch } from "react-icons/bi";
 import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search";
-import { Sheet, SheetTrigger } from "@/components/ui/sheet";
-import CartSidebar from "./CartSidebar";
-import IUser from "@/components/shared/icons/IUser";
-import ICart from "@/components/shared/icons/ICart";
 import { useGetCategoriesQuery } from "@/Redux/category/categoryApi";
 import { useSelector } from "react-redux";
 import { useGetMainLogoQuery } from "@/Redux/logo/logoApi";
 import { useState } from "react";
 import HeaderMobileSidebar from "./HeaderMobileSidebar";
+import IHeart from "../../icons/IHeart";
 
 export default function MainHeader() {
   const [showSidebar, setShowSidebar] = useState(false);
-  const { loggedUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const { data } = useGetCategoriesQuery();
   const categories = data?.data;
@@ -22,7 +18,7 @@ export default function MainHeader() {
   const { data: logoData, isLoading } = useGetMainLogoQuery();
   const logo = logoData?.data && logoData?.data[0]?.logo;
 
-  const { carts } = useSelector((state) => state.cart);
+  const { wishlists } = useSelector((state) => state.wishlist);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -70,7 +66,7 @@ export default function MainHeader() {
                   alt="logo"
                   width={200}
                   height={60}
-                  className="w-40 lg:w-48"
+                  className="w-40 lg:w-52"
                 />
               ) : (
                 <img
@@ -78,7 +74,7 @@ export default function MainHeader() {
                   alt="logo"
                   width={200}
                   height={60}
-                  className="w-40 lg:w-48"
+                  className="w-40 lg:w-52"
                 />
               )}
             </Link>
@@ -88,34 +84,14 @@ export default function MainHeader() {
           <div className="flex items-center justify-end gap-3 text-neutral-content sm:gap-5 lg:w-2/5">
             <Search />
 
-            {loggedUser?.success && loggedUser?.data?.role ? (
-              <Link to="/account/profile">
-                <img
-                  src="/images/demo_user.jpg"
-                  alt="user"
-                  className="-mt-1 h-[26px] w-[26px] rounded-full"
-                />
-              </Link>
-            ) : (
-              <Link to="/login">
-                <IUser width={26} height={26} />
-              </Link>
-            )}
-
-            <Sheet>
-              <SheetTrigger asChild>
-                <button className="relative -mt-1">
-                  <ICart width={24} height={24} />
-                  {carts.length > 0 && (
-                    <span className="absolute -right-3 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-base-100">
-                      {carts?.length}
-                    </span>
-                  )}
-                </button>
-              </SheetTrigger>
-
-              <CartSidebar />
-            </Sheet>
+            <Link to="/wishlist" className="relative">
+              <IHeart width={25} height={25} />
+              {wishlists.length > 0 && (
+                <span className="absolute -right-3 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-base-100">
+                  {wishlists?.length}
+                </span>
+              )}
+            </Link>
           </div>
         </div>
 

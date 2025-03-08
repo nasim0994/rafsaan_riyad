@@ -7,8 +7,6 @@ const router = express.Router();
 const category = require("./categoriesRoutes");
 const subCategory = require("./subCategoriesRoutes");
 const subSubCategory = require("./subSubCategoriesRoutes");
-const brand = require("./product/brandRoutes");
-const color = require("./product/colorRoutes");
 
 const adminRoutes = require("./adminRoutes");
 const userRoutes = require("./userRoutes");
@@ -23,11 +21,8 @@ const aboutRouter = require("./aboutRoutes");
 
 const productRouter = require("./productRoutes");
 const flashDealRouter = require("./flashDealRoutes");
-const reviewRouter = require("./reveiwRoutes");
 
-const couponRouter = require("./couponRoutes");
 const seoRouter = require("./seoRoutes");
-const shippingConfigRouter = require("./shippingConfigRoutes");
 
 // General
 const businessInfoRoutes = require("./businessInfoRoutes");
@@ -40,7 +35,6 @@ const termcondition = require("./termconditionRoute");
 const returnPolicy = require("./returnPolicyRoute");
 const faq = require("./faqRoutes");
 
-
 //------------------------------------------------------------------------------
 // use Routes
 //------------------------------------------------------------------------------
@@ -48,9 +42,6 @@ const faq = require("./faqRoutes");
 router.use("/category", category);
 router.use("/subCategory", subCategory);
 router.use("/subSubCategory", subSubCategory);
-
-router.use("/brand", brand);
-router.use("/color", color);
 
 router.use("/admin", adminRoutes);
 router.use("/user", userRoutes);
@@ -61,14 +52,12 @@ router.use("/about", aboutRouter);
 
 router.use("/product", productRouter);
 router.use("/flash-deal", flashDealRouter);
-router.use("/review", reviewRouter);
+
 router.use("/banner", bannerRouter);
 router.use("/heroCampaignBanner", heroCampaignBanner);
 router.use("/topCampaignBanner", topCampaignBannerRouter);
 
-router.use("/coupon", couponRouter);
 router.use("/seo", seoRouter);
-router.use("/shippingConfig", shippingConfigRouter);
 
 router.use("/privacy", privacy);
 router.use("/terms-condition", termcondition);
