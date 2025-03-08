@@ -2,19 +2,12 @@
 import React, { Suspense } from "react";
 import Spinner from "@/components/shared/Spinner/Spinner";
 import { Navigate } from "react-router-dom";
+import HeroCampaignBanners from "@/pages/Admin/EcommerceSetting/HeroCampaignBanners/HeroCampaignBanners";
+import AddHeroCampaignBanner from "@/pages/Admin/EcommerceSetting/HeroCampaignBanners/AddHeroCampaignBanner";
+import EditHeroCampaignBanner from "@/pages/Admin/EcommerceSetting/HeroCampaignBanners/EditHeroCampaignBanner";
 
 const Editcategory = React.lazy(
   () => import("@/pages/Admin/Category/Categories/Editcategory"),
-);
-
-const AllTopHeader = React.lazy(
-  () => import("@/pages/Admin/TopHeader/AllTopHeader"),
-);
-const AddTopHeader = React.lazy(
-  () => import("@/pages/Admin/TopHeader/AddTopHeader"),
-);
-const EditTopHeader = React.lazy(
-  () => import("@/pages/Admin/TopHeader/EditTopHeader"),
 );
 
 const AdminLayout = React.lazy(() => import("@/Layout/AdminLayout"));
@@ -75,7 +68,7 @@ const FlashDealList = React.lazy(
 const EditFlashDeal = React.lazy(
   () => import("@/pages/Admin/FlashDeal/EditFlashDeal"),
 );
-const AllReview = React.lazy(() => import("@/pages/Admin/AllReview/AllReview"));
+
 const Administrator = React.lazy(
   () => import("@/pages/Admin/Administrator/Administrator"),
 );
@@ -85,15 +78,7 @@ const AddAdministrator = React.lazy(
 const EditAdministrator = React.lazy(
   () => import("@/pages/Admin/Administrator/EditAdmin"),
 );
-const CouponLists = React.lazy(
-  () => import("@/pages/Admin/EcommerceSetting/Coupon/CouponLists"),
-);
-const AddCoupon = React.lazy(
-  () => import("@/pages/Admin/EcommerceSetting/Coupon/AddCoupon"),
-);
-const EditCoupon = React.lazy(
-  () => import("@/pages/Admin/EcommerceSetting/Coupon/EditCoupon"),
-);
+
 const ShippingConfiguration = React.lazy(
   () =>
     import(
@@ -112,18 +97,7 @@ const EditBanner = React.lazy(
 const ShopBanner = React.lazy(
   () => import("@/pages/Admin/EcommerceSetting/ShopBanner/ShopBanner"),
 );
-const CampaignBanners = React.lazy(
-  () =>
-    import("@/pages/Admin/EcommerceSetting/CampaignBanners/CampaignBanners"),
-);
-const AddCampaignBanner = React.lazy(
-  () =>
-    import("@/pages/Admin/EcommerceSetting/CampaignBanners/AddCampaignBanner"),
-);
-const EditCampaignBanner = React.lazy(
-  () =>
-    import("@/pages/Admin/EcommerceSetting/CampaignBanners/EditCampaignBanner"),
-);
+
 const AdminProfile = React.lazy(
   () => import("@/pages/Admin/GeneralSetting/AdminProfile/AdminProfile"),
 );
@@ -294,26 +268,6 @@ export const adminRoutes = {
       path: "/admin/promo/flash-sale/edit/:id",
       element: <EditFlashDeal />,
     },
-
-    {
-      path: "/admin/promo/coupon/all",
-      element: <CouponLists />,
-    },
-    {
-      path: "/admin/promo/coupon/add",
-      element: <AddCoupon />,
-    },
-    {
-      path: "/admin/promo/coupon/edit/:id",
-      element: <EditCoupon />,
-    },
-
-    //--------------Review
-    {
-      path: "/admin/review/all",
-      element: <AllReview />,
-    },
-
     //----------Business Setting
     //e-commerce-setting
     {
@@ -359,20 +313,6 @@ export const adminRoutes = {
       element: <UpdateFaq />,
     },
 
-    //-------------Top Header
-    {
-      path: "/admin/business/section/topHeader/all",
-      element: <AllTopHeader />,
-    },
-    {
-      path: "/admin/business/section/topHeader/add",
-      element: <AddTopHeader />,
-    },
-    {
-      path: "/admin/business/section/topHeader/edit/:id",
-      element: <EditTopHeader />,
-    },
-
     //-------------Banner
     {
       path: "/admin/business/section/banner/all",
@@ -387,23 +327,24 @@ export const adminRoutes = {
       element: <EditBanner />,
     },
 
+    // Hero Campaign Banner
+    {
+      path: "/admin/business/section/hero-campaign-banner/all",
+      element: <HeroCampaignBanners />,
+    },
+    {
+      path: "/admin/business/section/hero-campaign-banner/add",
+      element: <AddHeroCampaignBanner />,
+    },
+    {
+      path: "/admin/business/section/hero-campaign-banner/edit/:id",
+      element: <EditHeroCampaignBanner />,
+    },
+
     //--------Shop Campaign Banner
     {
-      path: "/admin/business/section/campaign-banner-1",
+      path: "/admin/business/section/campaign-banner",
       element: <ShopBanner />,
-    },
-    //-------------CampaignBanners
-    {
-      path: "/admin/business/section/campaign-banner/all",
-      element: <CampaignBanners />,
-    },
-    {
-      path: "/admin/business/section/campaign-banner/add",
-      element: <AddCampaignBanner />,
-    },
-    {
-      path: "/admin/business/section/campaign-banner/edit/:id",
-      element: <EditCampaignBanner />,
     },
 
     //----------General Setting

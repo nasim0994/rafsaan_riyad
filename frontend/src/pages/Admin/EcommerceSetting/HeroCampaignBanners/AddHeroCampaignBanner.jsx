@@ -2,27 +2,21 @@ import { useState } from "react";
 import ImageUploading from "react-images-uploading";
 import { AiFillDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import { useAddCampaignBannerMutation } from "@/Redux/campaignBanner/campaignBannerApi";
+import { useAddHeroCampaignBannerMutation } from "@/Redux/heroCampaignBanner/heroCampaignBannerApi";
 import toast from "react-hot-toast";
 
-export default function AddCampaignBanner() {
+export default function AddHeroCampaignBanner() {
   const [images, setImages] = useState([]);
 
-  const [addBanner, { isLoading, isError, error }] =
-    useAddCampaignBannerMutation();
+  const [addHeroCampaignBanner, { isLoading, isError, error }] =
+    useAddHeroCampaignBannerMutation();
 
   const navigate = useNavigate();
 
   const handleAddCampaign = async (e) => {
     e.preventDefault();
     const image = images[0]?.file;
-    if (!image) {
-      return toast.error("Please select an image");
-    }
-
-    if (image.size > 1024 * 1024) {
-      return toast.error("Image size should be less than 1mb");
-    }
+    if (!image) return toast.error("Please select an image");
 
     const form = e.target;
     const link = form.link.value;
@@ -33,19 +27,19 @@ export default function AddCampaignBanner() {
     formData.append("link", link);
     formData.append("order", order);
 
-    const res = await addBanner(formData);
+    const res = await addHeroCampaignBanner(formData);
     if (res?.data?.success) {
-      toast.success("Campaign Banner Added Successfully");
-      navigate("/admin/business/section/campaign-banner/all");
+      toast.success("Hero Campaign Banner Added Successfully");
+      navigate("/admin/business/section/hero-campaign-banner/all");
       setImages([]);
       form.reset();
     }
   };
 
   return (
-    <section className="rounded bg-base-100 shadow">
+    <section className="rounded bg-base-100 shadow md:w-[600px]">
       <div className="border-b p-4 font-medium text-neutral">
-        <h3>Add New Campaign Banner</h3>
+        <h3>Add Hero Campaign Banner</h3>
       </div>
       <form onSubmit={handleAddCampaign} className="flex flex-col gap-4 p-4">
         <div>
@@ -116,9 +110,9 @@ export default function AddCampaignBanner() {
           </p>
         )}
 
-        <div>
+        <div className="mt-6 flex justify-end border-t p-4">
           <button disabled={isLoading} className="primary_btn">
-            {isLoading ? "Loading..." : "Add Campaign Banner"}
+            {isLoading ? "Loading..." : "Add Hero Campaign Banner"}
           </button>
         </div>
       </form>

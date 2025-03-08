@@ -3,16 +3,16 @@ import ImageUploading from "react-images-uploading";
 import { AiFillDelete } from "react-icons/ai";
 import { useNavigate, useParams } from "react-router-dom";
 import {
-  useEditCampaignBannerMutation,
-  useGetCampaignBannerByIdQuery,
-} from "@/Redux/campaignBanner/campaignBannerApi";
+  useEditHeroCampaignBannerMutation,
+  useGetHeroCampaignBannerByIdQuery,
+} from "@/Redux/heroCampaignBanner/heroCampaignBannerApi";
 import toast from "react-hot-toast";
 
-export default function EditCampaignBanner() {
+export default function EditHeroCampaignBanner() {
   const [images, setImages] = useState([]);
   const { id } = useParams();
-  const { data } = useGetCampaignBannerByIdQuery(id);
-  const [editCampaignBanner] = useEditCampaignBannerMutation();
+  const { data } = useGetHeroCampaignBannerByIdQuery(id);
+  const [editHeroCampaignBanner] = useEditHeroCampaignBannerMutation();
 
   const navigate = useNavigate();
 
@@ -22,26 +22,22 @@ export default function EditCampaignBanner() {
     const link = e.target.link.value;
     const order = e.target.order.value;
 
-    if (image && image?.size > 1024 * 1024) {
-      return toast.error("Image size should be less than 1mb");
-    }
-
     const formData = new FormData();
     if (images?.length > 0) formData.append("image", image);
     formData.append("link", link);
     formData.append("order", order);
 
-    const res = await editCampaignBanner({ formData, id });
+    const res = await editHeroCampaignBanner({ formData, id });
     if (res?.data?.success) {
-      toast.success("Campaign Banner Updated Successfully");
-      navigate("/admin/business/section/campaign-banner/all");
+      toast.success("Hero Campaign Banner Updated Successfully");
+      navigate("/admin/business/section/hero-campaign-banner/all");
     }
   };
 
   return (
-    <section className="rounded bg-base-100 shadow">
+    <section className="rounded bg-base-100 shadow md:w-[600px]">
       <div className="border-b p-4 font-medium text-neutral">
-        <h3>Edit Campaign Banner</h3>
+        <h3>Edit Hero Campaign Banner</h3>
       </div>
       <form onSubmit={handleEditCampaign} className="flex flex-col gap-4 p-4">
         <div>
@@ -85,11 +81,12 @@ export default function EditCampaignBanner() {
 
           {data?.data?.image && (
             <img
-              src={`${import.meta.env.VITE_BACKEND_URL}/campaignBanner/${
+              src={`${import.meta.env.VITE_BACKEND_URL}/herocampaignBanner/${
                 data?.data?.image
               }`}
-              alt=""
+              alt="herocampaignBanner"
               className="mt-4 w-40 rounded"
+              loading="lazy"
             />
           )}
         </div>

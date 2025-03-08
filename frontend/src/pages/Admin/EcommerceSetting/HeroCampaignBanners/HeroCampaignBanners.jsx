@@ -1,36 +1,39 @@
 import { Link } from "react-router-dom";
 import { MdEdit, MdDelete } from "react-icons/md";
 import {
-  useDeleteCampaignBannerMutation,
-  useGetCampaignBannersQuery,
-} from "@/Redux/campaignBanner/campaignBannerApi";
+  useDeleteHeroCampaignBannerMutation,
+  useGetHeroCampaignBannersQuery,
+} from "@/Redux/heroCampaignBanner/heroCampaignBannerApi";
 import toast from "react-hot-toast";
-import TableSkeleton from "@/components/shared/Skeleton/TableSkeleton";
+import Spinner from "@/components/shared/Spinner/Spinner";
 
-export default function CampaignBanners() {
-  const { data, isLoading } = useGetCampaignBannersQuery();
-  const [deleteCampaignBanner] = useDeleteCampaignBannerMutation();
+export default function HeroCampaignBanners() {
+  const { data, isLoading } = useGetHeroCampaignBannersQuery();
+  const banners = data?.data;
+  const [deleteHeroCampaignBanner] = useDeleteHeroCampaignBannerMutation();
 
   const handleDeleteBanner = async (id) => {
     const isConfirm = window.confirm("are you sure delete this banner?");
     if (isConfirm) {
-      await deleteCampaignBanner(id);
+      await deleteHeroCampaignBanner(id);
       toast.success("Banner Deleted Successfully");
     }
   };
 
-  if (isLoading) return <TableSkeleton />;
+  if (isLoading) return <Spinner />;
 
   return (
     <section className="rounded bg-base-100 shadow">
       <div className="flex items-center justify-between border-b p-4 font-medium text-neutral">
-        <h3>Campaign Banner Lists</h3>
-        <Link
-          to="/admin/business/section/campaign-banner/add"
-          className="primary_btn"
-        >
-          Add Campaign Banner
-        </Link>
+        <h3>Hero Campaign Banner Lists</h3>
+        {banners?.length < 2 && (
+          <Link
+            to="/admin/business/section/hero-campaign-banner/add"
+            className="primary_btn"
+          >
+            Add New
+          </Link>
+        )}
       </div>
       <div className="p-4">
         <div className="relative overflow-x-auto">
@@ -44,8 +47,8 @@ export default function CampaignBanners() {
               </tr>
             </thead>
             <tbody>
-              {data?.data?.length > 0 ? (
-                data?.data?.map((banner) => (
+              {banners?.length > 0 ? (
+                banners?.map((banner) => (
                   <tr key={banner?._id}>
                     <td>{banner?.order}</td>
                     <td>
@@ -53,9 +56,10 @@ export default function CampaignBanners() {
                         <img
                           src={`${
                             import.meta.env.VITE_BACKEND_URL
-                          }/campaignBanner/${banner?.image}`}
-                          alt="campaignBanner"
+                          }/herocampaignBanner/${banner?.image}`}
+                          alt="herocampaignBanner"
                           className="h-10 w-16"
+                          loading="lazy"
                         />
                       </div>
                     </td>
@@ -63,7 +67,7 @@ export default function CampaignBanners() {
                     <td>
                       <div className="flex items-center gap-2 text-lg">
                         <Link
-                          to={`/admin/business/section/campaign-banner/edit/${banner?._id}`}
+                          to={`/admin/business/section/hero-campaign-banner/edit/${banner?._id}`}
                           className="duration-200 hover:text-red-500"
                         >
                           <MdEdit />

@@ -16,6 +16,7 @@ const logoRouter = require("./logoRoutes");
 const faviconRouter = require("./faviconRoutes");
 const contactRouter = require("./contactRoutes");
 const bannerRouter = require("./bannerRoutes");
+const heroCampaignBanner = require("./heroCampaignBannerRoutes");
 const topCampaignBannerRouter = require("./TopCampaignBannerRoutes");
 const campaignBanner = require("./campaignBannerRoutes");
 
@@ -58,12 +59,13 @@ router.use("/user", userRoutes);
 router.use("/logo", logoRouter);
 router.use("/favicon", faviconRouter);
 router.use("/contact", contactRouter);
-router.use("/banner", bannerRouter);
 router.use("/about", aboutRouter);
 
 router.use("/product", productRouter);
 router.use("/flash-deal", flashDealRouter);
 router.use("/review", reviewRouter);
+router.use("/banner", bannerRouter);
+router.use("/heroCampaignBanner", heroCampaignBanner);
 router.use("/topCampaignBanner", topCampaignBannerRouter);
 router.use("/campaignBanner", campaignBanner);
 

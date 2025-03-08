@@ -1,4 +1,3 @@
-import { AiOutlineStar } from "react-icons/ai";
 import { RiAdminFill, RiCouponLine, RiPagesLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import { BiCategory } from "react-icons/bi";
@@ -65,16 +64,6 @@ const adminSidebarItems = [
           },
         ],
       },
-      {
-        icon: <AiOutlineStar />,
-        title: "Review",
-        path: "/admin/review/all",
-      },
-      // {
-      //   icon: <LuFileBox />,
-      //   title: "Stock",
-      //   path: "/admin/stock/all",
-      // },
     ],
   },
   {
@@ -94,29 +83,6 @@ const adminSidebarItems = [
           },
         ],
       },
-      // {
-      //   icon: <TbReportMoney />,
-      //   title: "Report",
-      //   subMenu: [
-      //     {
-      //       title: "Sales Report",
-      //       subSubMenu: [
-      //         {
-      //           title: "Product Ways",
-      //           path: "/admin/report/sales-report/product-ways",
-      //         },
-      //         {
-      //           title: "Invoice Ways",
-      //           path: "/admin/report/sales-report/invoice-ways",
-      //         },
-      //         {
-      //           title: "Date Ways",
-      //           path: "/admin/report/sales-report/date-ways",
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
     ],
   },
   {
@@ -179,6 +145,10 @@ const adminSidebarItems = [
             path: "/admin/pages/contact-us",
           },
           {
+            title: "Videos",
+            path: "/admin/pages/videos",
+          },
+          {
             title: "FAQ",
             path: "/admin/pages/faq/all",
           },
@@ -209,12 +179,12 @@ const adminSidebarItems = [
             path: "/admin/business/section/banner/all",
           },
           {
-            title: "Campaign Banner 1",
-            path: "/admin/business/section/campaign-banner-1",
+            title: "Hero Campaign",
+            path: "/admin/business/section/hero-campaign-banner/all",
           },
           {
             title: "Campaign Banner",
-            path: "/admin/business/section/campaign-banner/all",
+            path: "/admin/business/section/campaign-banner",
           },
         ],
       },
