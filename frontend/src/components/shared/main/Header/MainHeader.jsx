@@ -4,14 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search";
 import { Sheet, SheetTrigger } from "@/components/ui/sheet";
 import CartSidebar from "./CartSidebar";
-import IWhatsapp from "@/components/shared/icons/IWhatsapp";
 import IUser from "@/components/shared/icons/IUser";
-import IHeart from "@/components/shared/icons/IHeart";
 import ICart from "@/components/shared/icons/ICart";
 import { useGetCategoriesQuery } from "@/Redux/category/categoryApi";
 import { useSelector } from "react-redux";
 import { useGetMainLogoQuery } from "@/Redux/logo/logoApi";
-import { useGetContactQuery } from "@/Redux/contact/contactApi";
 import { useState } from "react";
 import HeaderMobileSidebar from "./HeaderMobileSidebar";
 
@@ -25,11 +22,7 @@ export default function MainHeader() {
   const { data: logoData, isLoading } = useGetMainLogoQuery();
   const logo = logoData?.data && logoData?.data[0]?.logo;
 
-  const { data: contactData } = useGetContactQuery();
-  const whatsapp = contactData?.data[0]?.whatsapp;
-
   const { carts } = useSelector((state) => state.cart);
-  const { wishlists } = useSelector((state) => state.wishlist);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -77,7 +70,7 @@ export default function MainHeader() {
                   alt="logo"
                   width={200}
                   height={60}
-                  className="w-32 lg:w-44"
+                  className="w-40 lg:w-48"
                 />
               ) : (
                 <img
@@ -85,7 +78,7 @@ export default function MainHeader() {
                   alt="logo"
                   width={200}
                   height={60}
-                  className="w-32 lg:w-44"
+                  className="w-40 lg:w-48"
                 />
               )}
             </Link>
@@ -94,15 +87,13 @@ export default function MainHeader() {
           {/* buttons */}
           <div className="flex items-center justify-end gap-3 text-neutral-content sm:gap-5 lg:w-2/5">
             <Search />
-            <Link to={`https://wa.me/${whatsapp}`} target="_blank">
-              <IWhatsapp width={23} height={23} />
-            </Link>
+
             {loggedUser?.success && loggedUser?.data?.role ? (
               <Link to="/account/profile">
                 <img
                   src="/images/demo_user.jpg"
                   alt="user"
-                  className="h-7 w-7 rounded-full"
+                  className="-mt-1 h-[26px] w-[26px] rounded-full"
                 />
               </Link>
             ) : (
@@ -111,14 +102,6 @@ export default function MainHeader() {
               </Link>
             )}
 
-            <Link to="/wishlist" className="relative">
-              <IHeart width={25} height={25} />
-              {wishlists.length > 0 && (
-                <span className="absolute -right-3 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-xs text-base-100">
-                  {wishlists?.length}
-                </span>
-              )}
-            </Link>
             <Sheet>
               <SheetTrigger asChild>
                 <button className="relative -mt-1">

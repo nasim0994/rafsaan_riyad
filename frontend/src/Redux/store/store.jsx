@@ -2,7 +2,6 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "../api/apiSlice";
 import cartSlice from "../cart/cartSlice";
 import userSlice from "../user/userSlice";
-import wishlistSlice from "../wishlist/wishlistSlice";
 import {
   persistReducer,
   persistStore,
@@ -19,13 +18,12 @@ import { combineReducers } from "redux";
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["cart", "wishlist", "user"],
+  whitelist: ["cart", "user"],
 };
 
 const rootReducer = combineReducers({
   user: userSlice,
   cart: cartSlice,
-  wishlist: wishlistSlice,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

@@ -20,7 +20,6 @@ export default function Profile() {
 
   const { data } = useGetMyOrdersQuery(user?._id);
   const orders = data?.data;
-  const wishlists = useSelector((state) => state.wishlist.wishlists);
 
   if (!user) return <Spinner />;
 
@@ -170,10 +169,6 @@ export default function Profile() {
           <div className="border-r border-neutral/50">
             <h1 className="font-medium">Total Order</h1>
             <p className="font-medium">{orders?.length}</p>
-          </div>
-          <div>
-            <h1 className="font-medium">Total Wishlist</h1>
-            <p className="font-medium">{wishlists?.length}</p>
           </div>
         </div>
       </div>

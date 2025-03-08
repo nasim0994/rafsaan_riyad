@@ -35,7 +35,7 @@ export default function Search() {
       </button>
 
       {showSearch && (
-        <div className="absolute left-0 top-0 z-50 h-full w-full bg-base-100 p-10">
+        <div className="absolute left-0 top-0 z-50 h-full w-full bg-base-100 p-3">
           <form onSubmit={handleSearch} className="relative xl:mx-48">
             <input
               type="text"

@@ -14,7 +14,6 @@ import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { addToCart, buyNow } from "@/Redux/cart/cartSlice";
 import { currencyFormatter } from "@/lib/currencyFormatter";
-import WishlistBtn from "@/components/shared/main/WishlistBtn";
 import { FiMinusCircle, FiPlusCircle } from "react-icons/fi";
 
 export default function ProductDetails() {
@@ -200,7 +199,6 @@ export default function ProductDetails() {
               <p className="text-neutral">
                 {product?.code && `Style No ${product?.code}`}
               </p>
-              <WishlistBtn product={product} />
             </div>
 
             {/* Price */}

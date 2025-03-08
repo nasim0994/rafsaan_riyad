@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    --primary: #540c34;
+    --primary: #000000;
     --primary-foreground: #fff;
-    --secondary: #3d3c24;
+    --secondary: #d09f00;
     --secondary-foreground: #fff;
     --accent: #031a2f;
     --accent-foreground: #fff;
@@ -36,9 +36,9 @@
     --radius: 0.5rem;
   }
   .dark {
-    --primary: #540c34;
+    --primary: #000000;
     --primary-foreground: #fff;
-    --secondary: #3d3c24;
+    --secondary: #d09f00;
     --secondary-foreground: #fff;
     --accent: #031a2f;
     --accent-foreground: #fff;

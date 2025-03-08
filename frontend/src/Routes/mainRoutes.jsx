@@ -5,20 +5,6 @@ import Spinner from "@/components/shared/Spinner/Spinner";
 import MainLayout from "@/Layout/MainLayout";
 import Home from "@/pages/main/Home";
 
-// import AboutUs from "@/pages/main/AboutUs";
-// import ContactUs from "@/pages/main/ContactUs";
-// import Shop from "@/pages/main/Shop";
-// import PrivacyPolicy from "@/pages/main/PrivacyPolicy";
-// import TermsCondition from "@/pages/main/TermsCondition";
-// import ReturnPolicy from "@/pages/main/ReturnPolicy";
-// import FAQ from "@/pages/main/FAQ";
-// import ProductDetails from "@/pages/main/ProductDetails";
-// import Login from "@/pages/main/Login";
-// import Signup from "@/pages/main/Signup";
-// import Cart from "@/pages/main/Cart";
-// import Wishlist from "@/pages/main/Wishlist";
-// import Checkout from "@/pages/main/Checkout";
-
 // /Lazy import
 const AboutUs = React.lazy(() => import("@/pages/main/AboutUs"));
 const ContactUs = React.lazy(() => import("@/pages/main/ContactUs"));
@@ -31,7 +17,6 @@ const ProductDetails = React.lazy(() => import("@/pages/main/ProductDetails"));
 const Login = React.lazy(() => import("@/pages/main/Login"));
 const Signup = React.lazy(() => import("@/pages/main/Signup"));
 const Cart = React.lazy(() => import("@/pages/main/Cart"));
-const Wishlist = React.lazy(() => import("@/pages/main/Wishlist"));
 const Checkout = React.lazy(() => import("@/pages/main/Checkout"));
 
 export const mainRoutes = {
@@ -135,14 +120,6 @@ export const mainRoutes = {
       element: (
         <Suspense fallback={<Spinner />}>
           <Cart />
-        </Suspense>
-      ),
-    },
-    {
-      path: "/wishlist",
-      element: (
-        <Suspense fallback={<Spinner />}>
-          <Wishlist />
         </Suspense>
       ),
     },

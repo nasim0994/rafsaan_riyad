@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart, subTotalSelector } from "@/Redux/cart/cartSlice";
 import { currencyFormatter } from "@/lib/currencyFormatter";
-import WishlistBtn from "../WishlistBtn";
 
 export default function CartSidebar() {
   const { carts } = useSelector((state) => state.cart);
@@ -81,8 +80,6 @@ export default function CartSidebar() {
               </div>
 
               <div className="flex flex-col items-center justify-center gap-1">
-                <WishlistBtn product={product} />
-                <p>-</p>
                 <button onClick={() => dispatch(removeFromCart(product))}>
                   <AiOutlineDelete className="text-xl opacity-60" />
                 </button>
